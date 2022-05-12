@@ -17,6 +17,7 @@ export const GlobalStyle = createGlobalStyle`
 :root{
     --background: #fafafa;
     --search-button:#3982ec;
+    --search-button-active:#0d68eb;
 }
 
 *{
