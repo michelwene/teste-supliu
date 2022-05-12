@@ -31,6 +31,7 @@ html{
 
 body{
     background:url(${bodyBackground}) center / cover no-repeat ;
+    padding: 1rem 0;
     min-height:100vh ;
     ---webkit-font-smoothing: antialiased;
 
