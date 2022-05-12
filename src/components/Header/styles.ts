@@ -7,9 +7,7 @@ export const Content = styled.header`
 
   background: var(--background);
 
-  margin: 0 auto;
   padding: 1rem;
-  width: 80%;
 
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 `;

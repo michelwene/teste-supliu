@@ -16,7 +16,7 @@ export const GlobalStyle = createGlobalStyle`
 
 :root{
     --background: #fafafa;
-    --search-button:#3982ff;
+    --search-button:#3982ec;
 }
 
 *{
@@ -26,14 +26,16 @@ export const GlobalStyle = createGlobalStyle`
 }
 
 html{
+  background:url(${bodyBackground}) center / cover no-repeat ;
     font-family: 'Roboto', sans-serif;
 }
 
 body{
-    background:url(${bodyBackground}) center / cover no-repeat ;
-    padding: 1rem 0;
-    min-height:100vh ;
-    ---webkit-font-smoothing: antialiased;
+  width: 80%;
+  margin: 0 auto;
+  padding: 1rem 0 3rem 0;
+  min-height:100vh ;
+  ---webkit-font-smoothing: antialiased;
 
     &.lockScroll {
       max-height: 100vh;
@@ -52,6 +54,14 @@ h1, h2, h3, h4, h5, h6, strong{
 
 button{
     cursor: pointer;
+
+    &:hover {
+        filter: brightness(0.8);
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
 }
 
 a {
