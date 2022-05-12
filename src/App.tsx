@@ -1,12 +1,11 @@
-import { Discography } from "./components/Discography";
-import { Header } from "./components/Header";
+import { Router } from "./Pages/router";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
-    <>
-      <Header />
-      <Discography />
-    </>
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
   );
 }
 

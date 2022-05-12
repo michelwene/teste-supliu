@@ -1,8 +1,9 @@
-import { Content, Search, Table } from "./styles";
+import { Layout } from "components/Layout";
+import { Search, Table } from "./styles";
 
 export function Discography() {
   return (
-    <Content>
+    <Layout>
       <Search>
         <p>Digite uma palavra chave</p>
         <div>
@@ -63,6 +64,6 @@ export function Discography() {
           </tr>
         </tbody>
       </Table>
-    </Content>
+    </Layout>
   );
 }

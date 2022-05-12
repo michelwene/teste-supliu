@@ -64,6 +64,13 @@ button{
       }
 }
 
+input{
+  font-size: 1.125rem;
+  font-weight: 300;
+
+  
+}
+
 a {
     text-decoration: none;
   }
@@ -74,6 +81,13 @@ a {
 [disabled]{
     cursor: not-allowed;
 }
+
+input[type='date']::-webkit-inner-spin-button,
+  input[type='date']::-webkit-calendar-picker-indicator {
+    position: relative;
+    opacity: 0;
+    z-index: 5;
+  }
 
 &::-webkit-scrollbar {
     width: 4px;
