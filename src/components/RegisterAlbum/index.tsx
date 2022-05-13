@@ -24,6 +24,7 @@ export function RegisterAlbum() {
   } = useForm<IFormAlbumData>({
     resolver: yupResolver(formAlbumSchema),
   });
+
   async function handleFormSubmit(data: IFormAlbumData) {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     try {
@@ -32,6 +33,7 @@ export function RegisterAlbum() {
       console.log(err);
     }
   }
+
   return (
     <FormLayout onSubmit={handleSubmit(handleFormSubmit)}>
       <Content>
