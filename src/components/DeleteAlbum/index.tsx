@@ -6,6 +6,7 @@ import { Spinner } from "components/Spinner";
 import { Content } from "./styles";
 import { useState } from "react";
 import { InputError } from "components/InputError";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 interface IFormDeleteAlbumData {
   title: string;
@@ -25,12 +26,10 @@ export function DeleteAlbum() {
   });
 
   const [errorRequest, setErrorRequest] = useState<null | string>(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   async function handleFormSubmit(data: IFormDeleteAlbumData) {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     try {
-      setIsLoading(true);
       console.log(data);
     } catch (err) {
       setErrorRequest(err.message);
@@ -38,8 +37,6 @@ export function DeleteAlbum() {
       setTimeout(() => {
         setErrorRequest(null);
       }, 3000);
-    } finally {
-      setIsLoading(false);
     }
   }
   return (
@@ -56,7 +53,7 @@ export function DeleteAlbum() {
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? (
               <Spinner>
-                <div></div>
+                <AiOutlineLoading3Quarters size={20} />
                 <p>Excluindo...</p>
               </Spinner>
             ) : (

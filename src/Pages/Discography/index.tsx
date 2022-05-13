@@ -1,11 +1,15 @@
 import { Layout } from "components/Layout";
 import { Search, Table } from "./styles";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
 import { InputError } from "components/InputError";
 import { Spinner } from "components/Spinner";
+import { api } from "services/api";
+import { useState } from "react";
 
 const formInputSchema = yup.object({
   search: yup
@@ -14,6 +18,19 @@ const formInputSchema = yup.object({
     .min(3, "Digite pelo menos 3 caracteres"),
 });
 
+type AlbumData = {
+  id: number;
+  name: string;
+  tracks: [
+    {
+      id?: number;
+      duration: number;
+      number: number;
+      title: string;
+    }
+  ];
+  year: number;
+};
 interface IFormSearchData {
   search: string;
 }
@@ -27,10 +44,45 @@ export function Discography() {
     resolver: yupResolver(formInputSchema),
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [albums, setAlbums] = useState<AlbumData[]>([]);
+
   async function handleFormSubmit(data: IFormSearchData) {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
     try {
-      console.log(data);
+      setIsLoading(true);
+      const { data: response } = await api.get(`/album`, {
+        params: {
+          keyword: data.search,
+          limit: 10,
+          page: 1,
+        },
+      });
+      setAlbums(response.data);
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function handleDeleteAlbum(id: number) {
+    try {
+      await api.delete(`/album/${id}`);
+      setAlbums(albums.filter((album) => album.id !== id));
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function handleDeleteTrack(id: number) {
+    try {
+      await api.delete(`/track/${id}`);
+      setAlbums(
+        albums.filter(
+          (album) => album.tracks.findIndex((track) => track.id === id) === -1
+        )
+      );
     } catch (err) {
       console.log(err);
     }
@@ -40,15 +92,19 @@ export function Discography() {
     <Layout>
       <Search>
         <p>Digite uma palavra chave</p>
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
+        <div>
           <div>
             <input type="text" placeholder="Min" {...register("search")} />
             {errors.search && <InputError error={errors.search.message} />}
           </div>
-          <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? (
+          <button
+            type="button"
+            onClick={handleSubmit(handleFormSubmit)}
+            disabled={isLoading}
+          >
+            {isLoading ? (
               <Spinner>
-                <div></div>
+                <AiOutlineLoading3Quarters size={20} />
                 <p>Pesquisando...</p>
               </Spinner>
             ) : (
@@ -58,61 +114,46 @@ export function Discography() {
           <Link to="/gerenciar-discografia">
             <button>Editar discografia</button>
           </Link>
-        </form>
+        </div>
       </Search>
-      <Table>
-        <thead>
-          <tr>
-            <th>Álbum: Rei do Gado, 1961</th>
-          </tr>
-          <tr>
-            <div>
-              <td>Nº</td>
-              <td>Faixa</td>
-            </div>
-            <td>Duração</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <div>
-              <td>11</td>
-              <td>Minas Gerais</td>
-            </div>
-            <td>3:47</td>
-          </tr>
-        </tbody>
-      </Table>
-      <Table>
-        <thead>
-          <tr>
-            <th>Álbum: Linha de Frente, 1964</th>
-          </tr>
-          <tr>
-            <div>
-              <td>Nº</td>
-              <td>Faixa</td>
-            </div>
-            <td>Duração</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <div>
-              <td>1</td>
-              <td>O mineiro e o italiano</td>
-            </div>
-            <td>3:21</td>
-          </tr>
-          <tr>
-            <div>
-              <td>8</td>
-              <td>Minha prece</td>
-            </div>
-            <td>2:42</td>
-          </tr>
-        </tbody>
-      </Table>
+      {albums.map((album) => (
+        <Table key={album.id}>
+          <thead>
+            <tr>
+              <th>
+                Álbum: {album.name}, {album.year}
+              </th>
+              <button type="button" onClick={() => handleDeleteAlbum(album.id)}>
+                Excluir álbum
+              </button>
+            </tr>
+            <tr>
+              <div>
+                <td>Nº</td>
+                <td>Faixa</td>
+              </div>
+              <td>Duração</td>
+            </tr>
+          </thead>
+          <tbody>
+            {album.tracks.map((track) => (
+              <tr key={track.id}>
+                <div>
+                  <td>{track.number}</td>
+                  <td>{track.title}</td>
+                </div>
+                <td>{track.duration}</td>
+                <button
+                  type="button"
+                  onClick={() => handleDeleteTrack(track.id)}
+                >
+                  Excluir álbum
+                </button>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      ))}
     </Layout>
   );
 }

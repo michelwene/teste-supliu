@@ -5,7 +5,7 @@ export function InputError({ error }) {
   if (error) {
     return (
       <Content>
-        <FiAlertCircle color="#c53030" size={20} />
+        <FiAlertCircle color="#dd0606" size={20} />
         <p>{error}</p>
       </Content>
     );

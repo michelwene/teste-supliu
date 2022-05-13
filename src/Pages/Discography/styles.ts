@@ -2,21 +2,26 @@ import styled from "styled-components";
 
 export const Search = styled.div`
   width: 100%;
-  padding-bottom: 1rem;
+  padding-bottom: 0.5rem;
 
   p {
     font-weight: 300;
   }
 
-  form {
+  div {
     display: flex;
     column-gap: 1rem;
     height: 50px;
 
-    margin-top: 0.5rem;
-
     & > div {
       flex: 2;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      & > div {
+        display: flex;
+        flex-direction: row;
+      }
 
       input {
         border: 0 none;
@@ -34,7 +39,7 @@ export const Search = styled.div`
       font-size: 1.125rem;
       font-weight: 300;
 
-      max-width: 170px;
+      max-width: 200px;
       flex: 1;
 
       transition: filter 0.3s;
@@ -63,6 +68,15 @@ export const Table = styled.table`
     & > tr {
       display: flex;
       justify-content: space-between;
+
+      button {
+        border: 0 none;
+        border-radius: 5px;
+        background-color: var(--search-button);
+        color: #f1f1f1;
+
+        padding: 0.5rem 1rem;
+      }
 
       & > div {
         display: flex;

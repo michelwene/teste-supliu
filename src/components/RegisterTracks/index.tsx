@@ -5,6 +5,7 @@ import { Spinner } from "components/Spinner";
 import { FormLayout } from "components/FormLayout";
 import { Content } from "./styles";
 import { InputError } from "components/InputError";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 interface IFormTracksData {
   number: string;
@@ -80,7 +81,7 @@ export function RegisterTracks() {
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? (
               <Spinner>
-                <div></div>
+                <AiOutlineLoading3Quarters size={20} />
                 <p>Adicionando...</p>
               </Spinner>
             ) : (

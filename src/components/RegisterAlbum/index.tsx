@@ -5,15 +5,26 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Spinner } from "components/Spinner";
 import { FormLayout } from "components/FormLayout";
 import { InputError } from "components/InputError";
+import { api } from "services/api";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useState } from "react";
+import { SubmitSuccess } from "components/SubmitSuccessful";
 
 interface IFormAlbumData {
-  title: string;
-  date: string;
+  name: string;
+  year: string;
 }
 
 const formAlbumSchema = yup.object({
-  title: yup.string().required("Digite o nome do álbum"),
-  date: yup.string().required("Digite a data de lançamento"),
+  name: yup.string().required("Digite o nome do álbum"),
+  year: yup
+    .number()
+    .required("Digite o ano de lançamento")
+    .typeError("Digite um ano válido")
+    .integer("Digite um ano válido")
+    .positive("Digite um ano válido")
+    .min(1950, "Digite um ano válido")
+    .max(2030, "Ano de lançamento inválido"),
 });
 
 export function RegisterAlbum() {
@@ -24,13 +35,19 @@ export function RegisterAlbum() {
   } = useForm<IFormAlbumData>({
     resolver: yupResolver(formAlbumSchema),
   });
+  const [submitsuccess, setSubmitsuccess] = useState(false);
 
   async function handleFormSubmit(data: IFormAlbumData) {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
     try {
-      console.log(data);
+      const response = await api.post("/album", data);
+      setSubmitsuccess(true);
+      console.log(response);
     } catch (err) {
       console.log(err);
+    } finally {
+      setTimeout(() => {
+        setSubmitsuccess(false);
+      }, 3000);
     }
   }
 
@@ -42,21 +59,28 @@ export function RegisterAlbum() {
           <input
             type="text"
             placeholder="Nome do Álbum"
-            {...register("title")}
+            {...register("name")}
           />
-          {errors.title && <InputError error={errors.title.message} />}
-          <input type="date" placeholder="Ano do Álbum" {...register("date")} />
-          {errors.date && <InputError error={errors.date.message} />}
+          {errors.name && <InputError error={errors.name.message} />}
+          <input
+            type="number"
+            placeholder="Ano do Álbum"
+            {...register("year")}
+          />
+          {errors.year && <InputError error={errors.year.message} />}
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? (
               <Spinner>
-                <div></div>
+                <AiOutlineLoading3Quarters size={20} />
                 <p>Adicionando...</p>
               </Spinner>
             ) : (
               "Adicionar"
             )}
           </button>
+          {submitsuccess && (
+            <SubmitSuccess>Álbum adicionado com sucesso!</SubmitSuccess>
+          )}
         </div>
       </Content>
     </FormLayout>

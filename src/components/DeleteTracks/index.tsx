@@ -5,6 +5,7 @@ import { FormLayout } from "components/FormLayout";
 import { Spinner } from "components/Spinner";
 import { Content } from "./styles";
 import { InputError } from "components/InputError";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 interface IFormDeleteTracksData {
   title: string;
@@ -45,7 +46,7 @@ export function DeleteTracks() {
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? (
               <Spinner>
-                <div></div>
+                <AiOutlineLoading3Quarters size={20} />
                 <p>Excluindo...</p>
               </Spinner>
             ) : (
