@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Spinner } from "components/Spinner";
 import { FormLayout } from "components/FormLayout";
+import { InputError } from "components/InputError";
 
 interface IFormAlbumData {
   title: string;
@@ -11,8 +12,8 @@ interface IFormAlbumData {
 }
 
 const formAlbumSchema = yup.object({
-  title: yup.string().required("O campo é obrigatório"),
-  date: yup.string().required("O campo é obrigatório"),
+  title: yup.string().required("Digite o nome do álbum"),
+  date: yup.string().required("Digite a data de lançamento"),
 });
 
 export function RegisterAlbum() {
@@ -41,7 +42,9 @@ export function RegisterAlbum() {
             placeholder="Nome do Álbum"
             {...register("title")}
           />
+          {errors.title && <InputError error={errors.title.message} />}
           <input type="date" placeholder="Ano do Álbum" {...register("date")} />
+          {errors.date && <InputError error={errors.date.message} />}
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? (
               <Spinner>

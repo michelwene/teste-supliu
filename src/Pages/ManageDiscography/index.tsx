@@ -6,10 +6,19 @@ import { RegisterAlbum } from "components/RegisterAlbum";
 import { RegisterTracks } from "components/RegisterTracks";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { createBrowserHistory } from "history";
+import {
+  RiFolderMusicFill,
+  RiMusic2Fill,
+  RiDeleteBinLine,
+} from "react-icons/ri";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+import { TiFolderDelete } from "react-icons/ti";
 
 export function ManageDiscography() {
   const [step, setStep] = useState(0);
 
+  const history = createBrowserHistory();
   const handleSteps = {
     0: <RegisterAlbum />,
     1: <RegisterTracks />,
@@ -22,26 +31,25 @@ export function ManageDiscography() {
       id: 0,
       label: "Registrar Álbum",
       onclick: () => setStep(0),
+      icon: <RiFolderMusicFill />,
     },
     {
       id: 1,
-      label: "Registrar Músicas",
+      label: "Registrar Música",
       onclick: () => setStep(1),
+      icon: <RiMusic2Fill />,
     },
     {
       id: 2,
-      label: "Deletar Músicas",
+      label: "Deletar Música",
       onclick: () => setStep(2),
+      icon: <RiDeleteBinLine />,
     },
     {
       id: 3,
       label: "Deletar Álbum",
       onclick: () => setStep(3),
-    },
-    {
-      id: 4,
-      label: "Voltar",
-      onclick: () => <Link to={"/"}></Link>,
+      icon: <TiFolderDelete />,
     },
   ];
 
@@ -55,9 +63,16 @@ export function ManageDiscography() {
             onClick={item.onclick}
             className={step === item.id ? "active" : ""}
           >
+            {item.icon}
             {item.label}
           </button>
         ))}
+        <Link to="/">
+          <button type="button">
+            <AiOutlineArrowLeft />
+            Voltar
+          </button>
+        </Link>
       </S.Content>
       {handleSteps[step]}
     </Layout>

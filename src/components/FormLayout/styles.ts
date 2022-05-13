@@ -9,9 +9,10 @@ export const Form = styled.form`
   flex-direction: column;
   display: flex;
 
-  margin: auto 0;
+  margin: 3rem 0;
   width: 350px;
-  height: 500px;
+  min-height: 500px;
+  height: auto;
 
   padding: 1rem;
   row-gap: 5rem;

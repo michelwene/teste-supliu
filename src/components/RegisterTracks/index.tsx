@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Spinner } from "components/Spinner";
 import { FormLayout } from "components/FormLayout";
 import { Content } from "./styles";
+import { InputError } from "components/InputError";
 
 interface IFormTracksData {
   number: string;
@@ -13,10 +14,16 @@ interface IFormTracksData {
 }
 
 const formTracksSchema = yup.object({
-  name: yup.string().required("O campo é obrigatório"),
-  number: yup.number().required("O campo é obrigatório"),
-  title: yup.string().required("O campo é obrigatório"),
-  duration: yup.number().required("O campo é obrigatório"),
+  name: yup.string().required("O campo nome é obrigatório"),
+  number: yup
+    .number()
+    .required("Digite o número da música")
+    .typeError("Digite um número válido")
+    .integer("Digite um número inteiro")
+    .positive("Digite um número positivo")
+    .min(1, "Digite um número maior que 0"),
+  title: yup.string().required("Digite o nome da música"),
+  duration: yup.string().required("Digite a duração da música"),
 });
 
 export function RegisterTracks() {
@@ -47,21 +54,29 @@ export function RegisterTracks() {
             placeholder="Digite o nome do álbum"
             {...register("name")}
           />
+          {errors.name && <InputError error={errors.name.message} />}
+
           <input
-            type="text"
+            type="number"
             placeholder="Digite o número da Faixa"
             {...register("number")}
           />
+          {errors.number && <InputError error={errors.number.message} />}
+
           <input
             type="text"
             placeholder="Digite o nome da música"
             {...register("title")}
           />
+          {errors.title && <InputError error={errors.title.message} />}
+
           <input
             type="text"
             placeholder="Digite a duração da música"
             {...register("duration")}
           />
+          {errors.duration && <InputError error={errors.duration.message} />}
+
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? (
               <Spinner>

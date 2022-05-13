@@ -6,7 +6,7 @@ export function Router() {
   return (
     <Routes>
       <Route path="/" element={<Discography />} />
-      <Route path="/gerencia-discografia" element={<ManageDiscography />} />
+      <Route path="/gerenciar-discografia" element={<ManageDiscography />} />
     </Routes>
   );
 }

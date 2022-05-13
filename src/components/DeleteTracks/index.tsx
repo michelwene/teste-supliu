@@ -4,13 +4,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FormLayout } from "components/FormLayout";
 import { Spinner } from "components/Spinner";
 import { Content } from "./styles";
+import { InputError } from "components/InputError";
 
 interface IFormDeleteTracksData {
   title: string;
 }
 
 const formDeleteTracksSchema = yup.object({
-  title: yup.string().required("O campo é obrigatório"),
+  title: yup.string().required("Digite o nome da música"),
 });
 
 export function DeleteTracks() {
@@ -40,6 +41,7 @@ export function DeleteTracks() {
             placeholder="Digite o nome da música"
             {...register("title")}
           />
+          {errors.title && <InputError error={errors.title.message} />}
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? (
               <Spinner>
