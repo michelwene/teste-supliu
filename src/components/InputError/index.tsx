@@ -1,15 +1,15 @@
 import { FiAlertCircle } from "react-icons/fi";
 import { Content } from "./styles";
 
-export function InputError({ error }) {
-  if (error) {
-    return (
-      <Content>
-        <FiAlertCircle color="#dd0606" fontWeight={700} size={20} />
-        <p>{error}!</p>
-      </Content>
-    );
-  }
+interface InputErrorProps {
+  children: React.ReactNode;
+}
 
-  return null;
+export function InputError({ children }: InputErrorProps) {
+  return (
+    <Content>
+      <FiAlertCircle color="#dd0606" fontWeight={700} size={20} />
+      <p>{children}!</p>
+    </Content>
+  );
 }

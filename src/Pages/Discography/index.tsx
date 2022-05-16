@@ -11,6 +11,7 @@ import { Spinner } from "components/Spinner";
 import { api } from "services/api";
 import { useState } from "react";
 import { TableSkeleton } from "components/Skeleton";
+import { Input } from "components/Form/Input";
 
 const formInputSchema = yup.object({
   search: yup
@@ -104,8 +105,12 @@ export function Discography() {
         <p>Digite uma palavra chave</p>
         <div>
           <div>
-            <input type="text" placeholder="Min" {...register("search")} />
-            {errors.search && <InputError error={errors.search.message} />}
+            <Input
+              type="text"
+              placeholder="Min"
+              {...register("search")}
+              error={errors.search}
+            />
           </div>
           <button
             type="button"
@@ -158,14 +163,14 @@ export function Discography() {
                     <div>
                       <td>{track.number}</td>
                       <td>{track.title}</td>
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteTrack(track.id)}
+                      >
+                        Excluir música
+                      </button>
                     </div>
                     <td>{track.duration}</td>
-                    <button
-                      type="button"
-                      onClick={() => handleDeleteTrack(track.id)}
-                    >
-                      Excluir álbum
-                    </button>
                   </tr>
                 ))}
               </tbody>

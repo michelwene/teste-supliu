@@ -8,6 +8,7 @@ import { InputError } from "components/InputError";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { api } from "services/api";
+import { Input } from "components/Form/Input";
 
 interface IFormTracksData {
   number: string;
@@ -94,28 +95,25 @@ export function RegisterTracks() {
               </option>
             ))}
           </select>
-          {errors.select && <InputError error={errors.select.message} />}
-
-          <input
+          {errors.select && <InputError>{errors.select.message}</InputError>}
+          <Input
             type="number"
             placeholder="Digite o número da Faixa"
             {...register("number")}
+            error={errors.number}
           />
-          {errors.number && <InputError error={errors.number.message} />}
-
-          <input
+          <Input
             type="text"
             placeholder="Digite o nome da música"
             {...register("title")}
+            error={errors.title}
           />
-          {errors.title && <InputError error={errors.title.message} />}
-
-          <input
+          <Input
             type="text"
             placeholder="Duração da música em segundos"
             {...register("duration")}
+            error={errors.duration}
           />
-          {errors.duration && <InputError error={errors.duration.message} />}
 
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? (

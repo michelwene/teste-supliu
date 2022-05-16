@@ -49,7 +49,7 @@ export function DeleteAlbum() {
             placeholder="Digite o nome do álbum"
             {...register("title")}
           />
-          {errors.title && <InputError error={errors.title.message} />}
+          {/* {errors.title && <InputError error={errors.title.message} />} */}
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? (
               <Spinner>

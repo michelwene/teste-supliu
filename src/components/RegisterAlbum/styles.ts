@@ -16,19 +16,6 @@ export const Content = styled.div`
 
     row-gap: 1rem;
 
-    & > input {
-      border: 0 none;
-      border-radius: 10px;
-
-      padding: 1rem;
-      height: 3.125rem;
-
-      &:focus {
-        border: 2px solid var(--search-button);
-        outline: none;
-      }
-    }
-
     & > button {
       border: 0 none;
       border-radius: 30px;

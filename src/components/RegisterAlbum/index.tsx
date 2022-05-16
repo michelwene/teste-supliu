@@ -10,6 +10,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useState } from "react";
 import { SubmitSuccess } from "components/SubmitSuccessful";
 import { AxiosError } from "axios";
+import { Input } from "components/Form/Input";
 
 interface IFormAlbumData {
   name: string;
@@ -64,18 +65,18 @@ export function RegisterAlbum() {
       <Content>
         <h1>Adicionar Álbum</h1>
         <div>
-          <input
+          <Input
             type="text"
-            placeholder="Nome do Álbum"
             {...register("name")}
+            placeholder="Nome do Álbum"
+            error={errors.name}
           />
-          {errors.name && <InputError error={errors.name.message} />}
-          <input
+          <Input
             type="number"
             placeholder="Ano do Álbum"
             {...register("year")}
+            error={errors.year}
           />
-          {errors.year && <InputError error={errors.year.message} />}
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? (
               <Spinner>

@@ -90,15 +90,26 @@ export const Table = styled.table`
     flex-direction: column;
     row-gap: 1rem;
 
-    & > tr {
+    > tr {
       display: flex;
       justify-content: space-between;
+      align-items: center;
 
       padding-right: 1.7rem;
 
-      & > div {
+      > div {
+        align-items: center;
         display: flex;
         column-gap: 2.5rem;
+      }
+
+      button {
+        border: 0 none;
+        border-radius: 5px;
+        background-color: var(--search-button);
+        color: #f1f1f1;
+
+        padding: 0.5rem 1rem;
       }
     }
   }
