@@ -14,8 +14,6 @@ export const SpinnerLoading = styled.div`
   column-gap: 1rem;
   display: flex;
   justify-content: center;
-  height: 3rem;
-  padding: 1rem;
 
   svg {
     animation: spinner 1.5s linear infinite;

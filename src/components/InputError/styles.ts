@@ -7,6 +7,6 @@ export const Content = styled.div`
   p {
     font-size: 1.125rem;
     color: #dd0606;
-    font-weight: 500;
+    font-weight: 600;
   }
 `;

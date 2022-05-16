@@ -9,6 +9,7 @@ import { api } from "services/api";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useState } from "react";
 import { SubmitSuccess } from "components/SubmitSuccessful";
+import { AxiosError } from "axios";
 
 interface IFormAlbumData {
   name: string;
@@ -31,6 +32,7 @@ export function RegisterAlbum() {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<IFormAlbumData>({
     resolver: yupResolver(formAlbumSchema),
@@ -43,6 +45,13 @@ export function RegisterAlbum() {
       setSubmitsuccess(true);
       console.log(response);
     } catch (err) {
+      const error = err as AxiosError;
+      if (error.response.status === 404) {
+        setError("name", {
+          type: "text",
+          message: "O nome do álbum já está sendo usado",
+        });
+      }
       console.log(err);
     } finally {
       setTimeout(() => {
