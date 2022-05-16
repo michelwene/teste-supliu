@@ -5,6 +5,7 @@ export const Content = styled.section`
 
   display: flex;
   flex-direction: column;
+  gap: 3rem;
 
   background-color: rgba(255, 255, 255, 0.6);
   padding: 1rem;

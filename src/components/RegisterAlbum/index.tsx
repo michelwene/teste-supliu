@@ -1,62 +1,58 @@
 import { Content } from "./styles";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
 import { Spinner } from "components/Spinner";
 import { FormLayout } from "components/FormLayout";
-import { InputError } from "components/InputError";
 import { api } from "services/api";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { useState } from "react";
-import { SubmitSuccess } from "components/SubmitSuccessful";
 import { AxiosError } from "axios";
 import { Input } from "components/Form/Input";
-
-interface IFormAlbumData {
-  name: string;
-  year: string;
-}
-
-const formAlbumSchema = yup.object({
-  name: yup.string().required("Digite o nome do álbum"),
-  year: yup
-    .number()
-    .required("Digite o ano de lançamento")
-    .typeError("Digite um ano válido")
-    .integer("Digite um ano válido")
-    .positive("Digite um ano válido")
-    .min(1950, "Digite um ano válido")
-    .max(2030, "Ano de lançamento inválido"),
-});
+import { CustomToast } from "components/CustomTostfy";
+import { formAlbumSchema } from "Shared/Validators/registerAlbum";
+import { IFormAlbumData } from "types/registerAlbum";
 
 export function RegisterAlbum() {
   const {
     register,
     handleSubmit,
-    setError,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<IFormAlbumData>({
     resolver: yupResolver(formAlbumSchema),
   });
-  const [submitsuccess, setSubmitsuccess] = useState(false);
 
   async function handleFormSubmit(data: IFormAlbumData) {
     try {
       await api.post("/album", data);
-      setSubmitsuccess(true);
+
+      toast(
+        <CustomToast
+          status="success"
+          title="Sucesso!"
+          message="Álbum cadastrado com sucesso!"
+        />
+      );
+      reset();
     } catch (err) {
       const error = err as AxiosError;
       if (error.response.status === 404) {
-        setError("name", {
-          type: "text",
-          message: "O nome do álbum já está sendo usado",
-        });
+        toast(
+          <CustomToast
+            status="error"
+            title="Erro!"
+            message="Álbum já cadastrado!"
+          />
+        );
+        return;
       }
-      console.log(err);
-    } finally {
-      setTimeout(() => {
-        setSubmitsuccess(false);
-      }, 3000);
+      toast(
+        <CustomToast
+          status="error"
+          title="Erro!"
+          message="Erro ao cadastrar o álbum!"
+        />
+      );
     }
   }
 
@@ -87,9 +83,6 @@ export function RegisterAlbum() {
               "Adicionar"
             )}
           </button>
-          {submitsuccess && (
-            <SubmitSuccess>Álbum adicionado com sucesso!</SubmitSuccess>
-          )}
         </div>
       </Content>
     </FormLayout>

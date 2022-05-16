@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Spinner } from "components/Spinner";
 import { FormLayout } from "components/FormLayout";
@@ -7,44 +6,20 @@ import { Content } from "./styles";
 import { InputError } from "components/InputError";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { api } from "services/api";
 import { Input } from "components/Form/Input";
-
-interface IFormTracksData {
-  number: string;
-  title: string;
-  duration: string;
-  select: string;
-}
-
-const formTracksSchema = yup.object().shape({
-  select: yup.string().required("Selecione uma das opções"),
-  number: yup
-    .number()
-    .required("Digite o número da música")
-    .typeError("Digite um número válido")
-    .integer("Digite um número inteiro")
-    .positive("Digite um número positivo")
-    .min(1, "Digite um número maior que 0"),
-  title: yup.string().required("Digite o nome da música"),
-  duration: yup
-    .number()
-    .typeError("Digite um número válido")
-    .required("Digite a duração da música")
-    .integer("Digite um número inteiro")
-    .positive("Digite um número positivo")
-    .min(30, "Digite um número maior que 0"),
-});
-
-interface AlbumData {
-  id: number;
-  name: string;
-}
+import { CustomToast } from "components/CustomTostfy";
+import { AxiosError } from "axios";
+import {} from "Shared/Validators/registerAlbum";
+import { formTracksSchema } from "Shared/Validators/registerTracks";
+import { AlbumData, IFormTracksData } from "types/registerTracks";
 
 export function RegisterTracks() {
   const {
     register,
     setValue,
+    reset,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<IFormTracksData>({
@@ -63,8 +38,33 @@ export function RegisterTracks() {
       };
 
       await api.post("/track", payload);
+      toast(
+        <CustomToast
+          status="success"
+          title="Sucesso!"
+          message="Música cadastrada com sucesso!"
+        />
+      );
+      reset();
     } catch (err) {
-      console.log(err);
+      const error = err as AxiosError;
+      if (error.response.status === 404) {
+        toast(
+          <CustomToast
+            status="error"
+            title="Ops..."
+            message="Número da música ou nome já existentes"
+          />
+        );
+        return;
+      }
+      toast(
+        <CustomToast
+          status="error"
+          title="Ops..."
+          message="Não foi possível cadastrar a música"
+        />
+      );
     }
   }
 

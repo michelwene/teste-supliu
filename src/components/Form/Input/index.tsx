@@ -1,23 +1,25 @@
 import { InputError } from "components/InputError";
-import { forwardRef, ForwardRefRenderFunction } from "react";
+import {
+  forwardRef,
+  ForwardRefRenderFunction,
+  InputHTMLAttributes,
+} from "react";
 import { FieldError } from "react-hook-form";
 import { Input as InputLayout } from "./styles";
 
-interface InputProps {
-  type: string;
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name?: string;
   error?: FieldError;
   placeholder: string;
 }
 
 const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
-  { name, type, error = null, placeholder, ...rest },
+  { name, error = null, placeholder, ...rest },
   ref
 ) => {
   return (
     <>
       <InputLayout
-        type={type}
         name={name}
         id={name}
         placeholder={placeholder}

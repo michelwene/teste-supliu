@@ -1,24 +1,15 @@
-import { DeleteAlbum } from "components/DeleteAlbum";
-import { DeleteTracks } from "components/DeleteTracks";
 import { Layout } from "components/Layout";
 import * as S from "./styles";
 import { RegisterAlbum } from "components/RegisterAlbum";
 import { RegisterTracks } from "components/RegisterTracks";
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { createBrowserHistory } from "history";
-import {
-  RiFolderMusicFill,
-  RiMusic2Fill,
-  RiDeleteBinLine,
-} from "react-icons/ri";
+import { Link } from "react-router-dom";
+import { RiFolderMusicFill, RiMusic2Fill } from "react-icons/ri";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import { TiFolderDelete } from "react-icons/ti";
 
 export function ManageDiscography() {
   const [step, setStep] = useState(0);
 
-  const history = createBrowserHistory();
   const handleSteps = {
     0: <RegisterAlbum />,
     1: <RegisterTracks />,

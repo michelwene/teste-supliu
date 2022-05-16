@@ -5,6 +5,12 @@ export const Content = styled.header`
   column-gap: 1rem;
   display: flex;
 
+  @media (max-width: 600px) {
+    row-gap: 1rem;
+    align-items: center;
+    flex-direction: column;
+  }
+
   button {
     align-items: center;
     display: flex;
@@ -24,14 +30,6 @@ export const Content = styled.header`
 
     &:active {
       background-color: var(--search-button-active);
-    }
-
-    &:nth-child(3) {
-      background-color: #6d8ce8;
-    }
-
-    &:nth-child(4) {
-      background-color: #6d8ce8;
     }
 
     & + a button {

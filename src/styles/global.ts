@@ -28,7 +28,9 @@ export const GlobalStyle = createGlobalStyle`
 
 html{
   background:url(${bodyBackground}) center / cover no-repeat ;
-    font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
+
+
 }
 
 body{
@@ -41,6 +43,10 @@ body{
     &.lockScroll {
       max-height: 100vh;
       overflow: hidden;
+    }
+
+    @media (max-width: 600px) {
+      width:95vw ;
     }
 }
 

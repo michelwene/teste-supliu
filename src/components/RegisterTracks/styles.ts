@@ -21,13 +21,15 @@ export const Content = styled.div`
     row-gap: 1rem;
 
     label {
+      font-size: 1.125rem;
+      font-weight: 700;
       text-align: center;
     }
 
     select {
-      border-radius: 5px;
+      border-radius: 10px;
       border: 0 none;
-      height: 2rem;
+      height: 3rem;
       outline: none;
 
       color: -internal-light-dark(black, white);

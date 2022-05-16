@@ -16,4 +16,8 @@ export const Form = styled.form`
 
   padding: 1rem;
   row-gap: 5rem;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;

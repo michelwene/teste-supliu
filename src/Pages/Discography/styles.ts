@@ -1,11 +1,17 @@
 import styled from "styled-components";
 
 export const Search = styled.div`
+  display: flex;
+  flex-direction: column;
+
   width: 100%;
   padding-bottom: 0.5rem;
 
   p {
     font-weight: 300;
+    @media (max-width: 600px) {
+      text-align: center;
+    }
   }
 
   div {
@@ -13,12 +19,19 @@ export const Search = styled.div`
     column-gap: 1rem;
     height: 50px;
 
-    & > div {
+    @media (max-width: 600px) {
+      align-items: center;
+      flex-direction: column;
+      height: auto;
+      row-gap: 1rem;
+      width: 100%;
+    }
+    div {
       flex: 2;
       flex-direction: column;
       gap: 0.5rem;
 
-      & > div {
+      div {
         display: flex;
         flex-direction: row;
       }
@@ -43,6 +56,15 @@ export const Search = styled.div`
       flex: 1;
 
       transition: filter 0.3s;
+
+      @media (max-width: 600px) {
+        padding: 1rem;
+        width: 100%;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+      }
     }
 
     button:nth-child(1) {
@@ -69,15 +91,6 @@ export const Table = styled.table`
       display: flex;
       justify-content: space-between;
 
-      button {
-        border: 0 none;
-        border-radius: 5px;
-        background-color: var(--search-button);
-        color: #f1f1f1;
-
-        padding: 0.5rem 1rem;
-      }
-
       & > div {
         display: flex;
         column-gap: 2.25rem;
@@ -101,15 +114,6 @@ export const Table = styled.table`
         align-items: center;
         display: flex;
         column-gap: 2.5rem;
-      }
-
-      button {
-        border: 0 none;
-        border-radius: 5px;
-        background-color: var(--search-button);
-        color: #f1f1f1;
-
-        padding: 0.5rem 1rem;
       }
     }
   }

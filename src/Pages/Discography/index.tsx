@@ -2,98 +2,83 @@ import { Layout } from "components/Layout";
 import { Search, Table } from "./styles";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
-import { InputError } from "components/InputError";
 import { Spinner } from "components/Spinner";
+import { toast } from "react-toastify";
 import { api } from "services/api";
 import { useState } from "react";
 import { TableSkeleton } from "components/Skeleton";
 import { Input } from "components/Form/Input";
-
-const formInputSchema = yup.object({
-  search: yup
-    .string()
-    .required("Digite uma palavra chave")
-    .min(3, "Digite pelo menos 3 caracteres"),
-});
-
-type AlbumData = {
-  id: number;
-  name: string;
-  tracks: [
-    {
-      id?: number;
-      duration: number;
-      number: number;
-      title: string;
-    }
-  ];
-  year: number;
-};
-interface IFormSearchData {
-  search: string;
-}
+import { LayoutButton } from "components/Button/styles";
+import { AlbumData } from "types/discography";
+import { CustomToast } from "components/CustomTostfy";
+import { ItemTable } from "components/ItemTable";
+import { InputError } from "components/InputError";
 
 export function Discography() {
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors, isSubmitting },
-  } = useForm<IFormSearchData>({
-    resolver: yupResolver(formInputSchema),
-  });
-
   const [isLoading, setIsLoading] = useState(false);
   const [albums, setAlbums] = useState<AlbumData[]>([]);
+  const [search, setSearch] = useState("");
 
-  async function handleFormSubmit(data: IFormSearchData) {
+  async function handleSearch() {
     try {
       setIsLoading(true);
 
       const { data: response } = await api.get(`/album`, {
         params: {
-          keyword: data.search,
+          keyword: search,
           limit: 10,
           page: 1,
         },
       });
       if (response.data.length === 0) {
-        setError("search", {
-          type: "text",
-          message: "Nenhum álbum encontrado",
-        });
+        toast(
+          <CustomToast
+            status="error"
+            title="Ops..."
+            message="Não foi encontrado nenhum álbum com este nome."
+          />
+        );
+        setAlbums([]);
+        return;
       }
-
       setAlbums(response.data);
-      console.log(response.data);
     } catch (err) {
-      console.log(err);
+      toast(
+        <CustomToast
+          status="error"
+          title="Ops..."
+          message="Não foi possível buscar os álbuns."
+        />
+      );
     } finally {
       setIsLoading(false);
+    }
+  }
+
+  async function handleRefetchAlbum({
+    isFilter = false,
+  }: {
+    isFilter?: boolean;
+  }) {
+    try {
+      const { data: response } = await api.get(`/album`, {
+        params: {
+          keyword: isFilter ? search : "",
+          limit: 10,
+          page: 1,
+        },
+      });
+      setAlbums(response.data);
+    } catch (err) {
+      console.log(err);
     }
   }
 
   async function handleDeleteAlbum(id: number) {
     try {
       await api.delete(`/album/${id}`);
-      setAlbums(albums.filter((album) => album.id !== id));
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  async function handleDeleteTrack(id: number) {
-    try {
-      await api.delete(`/track/${id}`);
-      setAlbums(
-        albums.filter(
-          (album) => album.tracks.findIndex((track) => track.id === id) === -1
-        )
-      );
+      handleRefetchAlbum({ isFilter: true });
     } catch (err) {
       console.log(err);
     }
@@ -106,16 +91,20 @@ export function Discography() {
         <div>
           <div>
             <Input
-              type="text"
+              name="search"
               placeholder="Min"
-              {...register("search")}
-              error={errors.search}
+              onChange={(e) => {
+                setSearch(e.target?.value!);
+                e.target.value === "" &&
+                  (async () => await handleRefetchAlbum({ isFilter: false }))();
+              }}
+              value={search}
             />
           </div>
           <button
             type="button"
-            onClick={handleSubmit(handleFormSubmit)}
-            disabled={isLoading}
+            onClick={() => handleSearch()}
+            disabled={isLoading || search === "" || search.length < 3}
           >
             {isLoading ? (
               <Spinner>
@@ -131,51 +120,48 @@ export function Discography() {
           </Link>
         </div>
       </Search>
-      {isLoading
-        ? Array(2)
-            .fill(0)
-            .map((_, index) => <TableSkeleton key={index} />)
-        : albums.map((album) => (
-            <Table key={album.id}>
-              <thead>
-                <tr>
-                  <th>
-                    Álbum: {album.name}, {album.year}
-                  </th>
-                  <button
-                    type="button"
-                    onClick={() => handleDeleteAlbum(album.id)}
-                  >
-                    Excluir álbum
-                  </button>
-                </tr>
-                <tr>
-                  <div>
-                    <td>Nº</td>
-                    <td>Faixa</td>
-                  </div>
-                  <td>Duração</td>
-                </tr>
-              </thead>
-              <tbody>
-                {album.tracks.map((track) => (
-                  <tr key={track.id}>
-                    <div>
-                      <td>{track.number}</td>
-                      <td>{track.title}</td>
-                      <button
-                        type="button"
-                        onClick={() => handleDeleteTrack(track.id)}
-                      >
-                        Excluir música
-                      </button>
-                    </div>
-                    <td>{track.duration}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          ))}
+      {isLoading ? (
+        Array(2)
+          .fill(0)
+          .map((_, index) => <TableSkeleton key={index} />)
+      ) : albums.length > 0 ? (
+        albums.map((album) => (
+          <Table key={album.id}>
+            <thead>
+              <tr>
+                <th>
+                  Álbum: {album.name}, {album.year}
+                </th>
+                <LayoutButton
+                  type="button"
+                  onClick={() => handleDeleteAlbum(album.id)}
+                >
+                  Excluir álbum
+                </LayoutButton>
+              </tr>
+              <tr>
+                <div>
+                  <td>Nº</td>
+                  <td>Faixa</td>
+                </div>
+                <td>Duração</td>
+              </tr>
+            </thead>
+            <tbody>
+              {album.tracks.map((track) => (
+                <ItemTable
+                  track={track}
+                  refetch={() => handleRefetchAlbum({ isFilter: true })}
+                />
+              ))}
+            </tbody>
+          </Table>
+        ))
+      ) : (
+        <div>
+          <InputError>Pesquise por algum álbum</InputError>
+        </div>
+      )}
     </Layout>
   );
 }
