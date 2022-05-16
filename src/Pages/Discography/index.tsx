@@ -10,7 +10,6 @@ import { InputError } from "components/InputError";
 import { Spinner } from "components/Spinner";
 import { api } from "services/api";
 import { useState } from "react";
-import { AxiosError } from "axios";
 import { TableSkeleton } from "components/Skeleton";
 
 const formInputSchema = yup.object({

@@ -20,6 +20,27 @@ export const Content = styled.div`
 
     row-gap: 1rem;
 
+    label {
+      text-align: center;
+    }
+
+    select {
+      border-radius: 5px;
+      border: 0 none;
+      height: 2rem;
+      outline: none;
+
+      color: -internal-light-dark(black, white);
+      font-size: 1.125rem;
+      font-weight: 300;
+
+      padding: 0 1rem;
+
+      &:active {
+        border: 2px solid var(--search-button);
+      }
+    }
+
     & > input {
       border: 0 none;
       border-radius: 10px;

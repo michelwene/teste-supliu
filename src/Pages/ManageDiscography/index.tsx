@@ -5,7 +5,7 @@ import * as S from "./styles";
 import { RegisterAlbum } from "components/RegisterAlbum";
 import { RegisterTracks } from "components/RegisterTracks";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import {
   RiFolderMusicFill,

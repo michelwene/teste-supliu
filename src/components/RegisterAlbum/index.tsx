@@ -41,9 +41,8 @@ export function RegisterAlbum() {
 
   async function handleFormSubmit(data: IFormAlbumData) {
     try {
-      const response = await api.post("/album", data);
+      await api.post("/album", data);
       setSubmitsuccess(true);
-      console.log(response);
     } catch (err) {
       const error = err as AxiosError;
       if (error.response.status === 404) {
