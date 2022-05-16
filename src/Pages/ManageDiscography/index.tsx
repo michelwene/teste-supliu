@@ -22,8 +22,6 @@ export function ManageDiscography() {
   const handleSteps = {
     0: <RegisterAlbum />,
     1: <RegisterTracks />,
-    2: <DeleteTracks />,
-    3: <DeleteAlbum />,
   };
 
   const arrOptions = [
@@ -38,18 +36,6 @@ export function ManageDiscography() {
       label: "Registrar Música",
       onclick: () => setStep(1),
       icon: <RiMusic2Fill />,
-    },
-    {
-      id: 2,
-      label: "Deletar Música",
-      onclick: () => setStep(2),
-      icon: <RiDeleteBinLine />,
-    },
-    {
-      id: 3,
-      label: "Deletar Álbum",
-      onclick: () => setStep(3),
-      icon: <TiFolderDelete />,
     },
   ];
 
