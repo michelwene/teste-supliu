@@ -26,12 +26,13 @@ Os usuários devem ser capazes de:
 - Visualizar toastify de sucesso e error nos inputs da página inicial e formulários de edição da discografia.
 - Visualizar Esqueleto da página enquanto a requisição é feita na API.
 - Interações ao clicar nos botões de submit nos formulários e botão de pesquisar na página inicial.
+- Inteção de excluir álbum e excluir músicas na tabela da página inicial.
 
 ### Captura de tela
 
 - Tabela Desktop
 <p  align="center" >
-  <img src="/public/desktop_table.png"alt="Tela desktop da página inicial./>
+  <img src="/public/desktop_table.png"alt="Tela desktop da página inicial."/>
 </p>
 
 - Tabela Tablet
@@ -72,7 +73,7 @@ Os usuários devem ser capazes de:
 ### Links
 
 - Solução URL: [https://github.com/michelwene/teste-supliu](https://github.com/michelwene/teste-supliu)
-- Site URL: [https://ioasys-books-adls902zb-michelwene.vercel.app/](https://ioasys-books-adls902zb-michelwene.vercel.app/)
+- Site URL: []()
 
 ## :page_with_curl: Meu processo
 
@@ -96,14 +97,11 @@ Pretendo continuar fazendo projetos de desafios entre outros para melhorar meus 
 
 - [Developer Mozilla](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - A documentação do Developer Mozilla é essencial para compreender as funções e conseguir aplicar as mesmas no projeto.
 
-- [Typescript](https://www.typescriptlang.org/docs/handbook/2/keyof-types.html)
-- Documentação do Typescript utilizada para realizar a tipagem da propriedades.
+- [Typescript](https://www.typescriptlang.org/docs/handbook/2/keyof-types.html) - Documentação do Typescript utilizada para realizar a tipagem da propriedades.
 
-- [React-hook-form](https://react-hook-form.com/)
-- Utilizado para fazer o formulário de inserção dos inputs.
+- [React-hook-form](https://react-hook-form.com/) - Utilizado para fazer o formulário de inserção dos inputs.
 
-- [Yup](https://github.com/jquense/yup)
-- Utilização do yup para formatação do formulário.
+- [Yup](https://github.com/jquense/yup) - Utilização do yup para formatação do formulário.
 
 - [React-router-dom](https://reactrouter.com/) - Documentação utilizada para solução de dúvidas em relação ao react-router-dom
 

@@ -13,8 +13,6 @@ import { manageDiscographyService } from "services/useCases/manageDiscographySer
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { AxiosError } from "axios";
-
 export function RegisterAlbum() {
   const {
     register,
