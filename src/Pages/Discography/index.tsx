@@ -72,6 +72,14 @@ export function Discography() {
     try {
       await discographyService.deleteAlbum(id);
 
+      toast(
+        <CustomToast
+          status="success"
+          title="Sucesso!"
+          message="Álbum excluído com sucesso!"
+        />
+      );
+
       await handleRefetchAlbum();
     } catch (err) {
       toast(

@@ -39,22 +39,11 @@ export function RegisterAlbum() {
 
       reset();
     } catch (err) {
-      const error = err as AxiosError;
-      if (error.response.status === 404) {
-        toast(
-          <CustomToast
-            status="error"
-            title="Erro!"
-            message="Álbum já cadastrado!"
-          />
-        );
-        return;
-      }
       toast(
         <CustomToast
           status="error"
           title="Erro!"
-          message="Erro ao cadastrar o álbum!"
+          message={err.message ?? "Não foi possível cadastrar o álbum"}
         />
       );
     }

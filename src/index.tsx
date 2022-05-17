@@ -13,10 +13,6 @@ root.render(
   <React.StrictMode>
     <App />
     <GlobalStyle />
-    <ToastContainer
-      hideProgressBar
-      toastClassName="toastifyContainer"
-      autoClose={3000}
-    />
+    <ToastContainer hideProgressBar autoClose={3000} />
   </React.StrictMode>
 );

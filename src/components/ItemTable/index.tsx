@@ -12,8 +12,6 @@ export const ItemTable = ({ track, refetch }: ItemTableProps) => {
     try {
       setIsLoading(true);
       await discographyService.deleteTrack(id);
-
-      await refetch();
       toast(
         <CustomToast
           status="success"
@@ -21,6 +19,7 @@ export const ItemTable = ({ track, refetch }: ItemTableProps) => {
           message="Música deletada com sucesso!"
         />
       );
+      await refetch();
     } catch (err) {
       toast(
         <CustomToast

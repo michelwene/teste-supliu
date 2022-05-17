@@ -8,7 +8,7 @@ class ManageDiscographyService {
     try {
       await api.post("/album", payload);
     } catch (err) {
-      throw new Error("Error ao criar um album");
+      throw new Error("Nome do álbum já existente");
     }
   }
 

@@ -33,7 +33,7 @@ export const formTracksSchema = yup.object().shape({
     .required("Digite o nome da música")
     .matches(
       /^[A-z-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]*$/,
-      "Digite um nome válido"
+      "Digite apenas letras e espaços"
     ),
   duration: yup
     .number()
