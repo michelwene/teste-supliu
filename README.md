@@ -29,49 +29,44 @@ Os usuários devem ser capazes de:
 
 ### Captura de tela
 
-- Login Desktop
+- Tabela Desktop
 <p  align="center" >
-  <img src="/public/login_desktop.png"alt="Desktop"/>
+  <img src="/public/desktop_table.png"alt="Tela desktop da página inicial./>
 </p>
 
-- Login Tablet
+- Tabela Tablet
 <p  align="center" >
-<img src="/public/login_tablet.png"alt="Tablet"/>
+<img src="/public/tablet_table.png"alt="Tela do tablet na tabela da página inicial"/>
 </p>
 
-- Login Mobile
+- Tabela Mobile
 <p  align="center" >
-<img src="/public/login_mobile.png"alt="mobile"/>
+<img src="/public/mobile_table.png"alt="Tela do celular na tabela da página inicial"/>
 </p>
 
-- Login Mobile Incorreto
+- Formulário de cadastro de álbuns Desktop
 <p  align="center" >
-<img src="/public/login_mobile_incorrect.png"alt="mobile incorreto"/>
+<img src="/public/desktop_form_album.png"alt="Tela de formulário de cadastro de álbuns no desktop"/>
 </p>
 
-- Login Mobile Loading
+- Formulário de cadastro de músicas Desktop
 <p  align="center" >
-<img src="/public/login_mobile_loading.png"alt="mobile loading"/>
+<img src="/public/desktop_form_track.png"alt="Tela de formulário de cadastro de músicas no desktop"/>
 </p>
 
-- Login Mobile Validação
+- Formulário no Tablet
 <p  align="center" >
-<img src="/public/login_mobile_validation.png"alt="mobile validation"/>
+<img src="/public/tablet_form.png"alt="Tela de formulário de cadastro no tablet"/>
 </p>
 
-- Books Desktop
+- Formulário no celular
 <p  align="center" >
-<img src="/public/books_desktop.png"alt="desktop books"/>
+<img src="/public/mobile_form.png"alt="Tela de formulário de cadastro no celular"/>
 </p>
 
-- Books Tablet
+- Formulário no celular
 <p  align="center" >
-<img src="/public/books_tablet.png"alt="tablet books"/>
-</p>
-
-- Books Mobile
-<p  align="center" >
-<img src="/public/books_mobile.png"alt="mobile books"/>
+<img src="/public/mobile_form_album.png"alt="Tela de formulário de cadastro no celular"/>
 </p>
 
 ### Links
