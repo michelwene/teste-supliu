@@ -10,6 +10,10 @@ export const LayoutButton = styled.button`
 `;
 
 export const IconButton = styled.button`
+  font-weight: 700;
+
   border: 0 none;
-  background-color: inherit;
+  border-radius: 8px;
+  background-color: #fbd7d7;
+  padding: 0.5rem;
 `;

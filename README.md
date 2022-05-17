@@ -1,12 +1,127 @@
-# Teste-Supliu
+# Teste Supliu.
 
-Projeto em desenvolvimento, este é um teste que faz parte do processo seletivo da empresa Supliu-tecnologia, devo criar uma página que busca os discos da dupla Tião Carreiro e Pardinho, e também criar, deletar e buscar por outros discos.
+Esta é uma solução para o teste de conhecimento Supliu tecnologia, proprosto pela empresa Supliu tecnologia.
 
-## Instalação
+## :dart: Resumo de conteúdos
 
-Após clonar este repositório inicie o projeto através de:
+- [Visão Geral](#Visão-Geral)
+  - [O desafio](#O-desafio)
+  - [Captura de tela](#Captura-de-tela)
+  - [Links](#Links)
+- [Meu processo](#Meu-processo)
+  - [Construído com](#Constrído-com)
+  - [O que eu aprendi](#O-que-eu-aprendi)
+  - [Continuação dos desenvolvimentos](#Continuação-dos-desenvolvimentos)
+  - [Recursos utilizados](#Recursos-utilizados)
+- [Autor](#Autor)
 
-```bash
-  yarn
-  yarn start
-```
+## Visão Geral.
+
+### :globe_with_meridians: O desafio
+
+Os usuários devem ser capazes de:
+
+- Visualizar o layout ideal para o aplicativo, dependendo do tamanho da tela do dispositivo.
+- Visualizar os estados de foco para todos os elementos interativos na página.
+- Visualizar toastify de sucesso e error nos inputs da página inicial e formulários de edição da discografia.
+- Visualizar Esqueleto da página enquanto a requisição é feita na API.
+- Interações ao clicar nos botões de submit nos formulários e botão de pesquisar na página inicial.
+
+### Captura de tela
+
+- Login Desktop
+<p  align="center" >
+  <img src="/public/login_desktop.png"alt="Desktop"/>
+</p>
+
+- Login Tablet
+<p  align="center" >
+<img src="/public/login_tablet.png"alt="Tablet"/>
+</p>
+
+- Login Mobile
+<p  align="center" >
+<img src="/public/login_mobile.png"alt="mobile"/>
+</p>
+
+- Login Mobile Incorreto
+<p  align="center" >
+<img src="/public/login_mobile_incorrect.png"alt="mobile incorreto"/>
+</p>
+
+- Login Mobile Loading
+<p  align="center" >
+<img src="/public/login_mobile_loading.png"alt="mobile loading"/>
+</p>
+
+- Login Mobile Validação
+<p  align="center" >
+<img src="/public/login_mobile_validation.png"alt="mobile validation"/>
+</p>
+
+- Books Desktop
+<p  align="center" >
+<img src="/public/books_desktop.png"alt="desktop books"/>
+</p>
+
+- Books Tablet
+<p  align="center" >
+<img src="/public/books_tablet.png"alt="tablet books"/>
+</p>
+
+- Books Mobile
+<p  align="center" >
+<img src="/public/books_mobile.png"alt="mobile books"/>
+</p>
+
+### Links
+
+- Solução URL: [https://github.com/michelwene/teste-supliu](https://github.com/michelwene/teste-supliu)
+- Site URL: [https://ioasys-books-adls902zb-michelwene.vercel.app/](https://ioasys-books-adls902zb-michelwene.vercel.app/)
+
+## :page_with_curl: Meu processo
+
+### Construído com
+
+- Typescript
+- Axios
+- React-hook-form
+- react-router-dom
+- Yup
+- react-icons
+- react-toastfy
+- Styled-Components
+- Design responsivo
+
+### Continuação dos desenvolvimentos
+
+Pretendo continuar fazendo projetos de desafios entre outros para melhorar meus conhecimentos em ReactJS, TypeScript e outras tecnologias.
+
+### Recursos utilizados
+
+- [Developer Mozilla](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - A documentação do Developer Mozilla é essencial para compreender as funções e conseguir aplicar as mesmas no projeto.
+
+- [Typescript](https://www.typescriptlang.org/docs/handbook/2/keyof-types.html)
+- Documentação do Typescript utilizada para realizar a tipagem da propriedades.
+
+- [React-hook-form](https://react-hook-form.com/)
+- Utilizado para fazer o formulário de inserção dos inputs.
+
+- [Yup](https://github.com/jquense/yup)
+- Utilização do yup para formatação do formulário.
+
+- [React-router-dom](https://reactrouter.com/) - Documentação utilizada para solução de dúvidas em relação ao react-router-dom
+
+- [React-toastify](https://www.npmjs.com/package/react-toastify) - Documentação utilizada para implementação do react-toastify
+
+- [React-icons](https://react-icons.github.io/react-icons/search) - Site utilizado na busca de ícones para implementação do site.
+
+- [Ioasys-books](https://github.com/michelwene/ioasys-books) - Projeto do Github que serviu como base de algumas funções e soluções utilizadas neste projeto.
+
+- [Be-The-Hero](https://github.com/michelwene/Be-The-Hero) - Projeto do Github que serviu como base de algumas funções e soluções utilizadas neste projeto.
+
+- [Github-Explorer](https://github.com/michelwene/Github-explorer) - Projeto do Github que serviu como base de algumas funções e soluções utilizadas neste projeto.
+
+## :medal_military: Autor
+
+- Linkedin - [@michelwene](https://www.linkedin.com/in/michelwene/)

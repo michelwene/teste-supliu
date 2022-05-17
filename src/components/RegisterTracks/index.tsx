@@ -1,19 +1,20 @@
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Spinner } from "components/Spinner";
 import { FormLayout } from "components/FormLayout";
-import { Content } from "./styles";
 import { InputError } from "components/InputError";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { api } from "services/api";
 import { Input } from "components/Form/Input";
 import { CustomToast } from "components/CustomTostfy";
-import { AxiosError } from "axios";
-import {} from "Shared/Validators/registerAlbum";
-import { formTracksSchema } from "Shared/Validators/registerTracks";
+import { Content } from "./styles";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { toast } from "react-toastify";
+
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect, useState } from "react";
+
 import { AlbumData, IFormTracksData } from "types/registerTracks";
+import { formTracksSchema } from "Shared/Validators/schema";
+import { discographyService } from "services/useCases/discographyService";
+import { manageDiscographyService } from "services/useCases/manageDiscographyService";
 
 export function RegisterTracks() {
   const {
@@ -37,7 +38,8 @@ export function RegisterTracks() {
         duration: Number(data.duration),
       };
 
-      await api.post("/track", payload);
+      await manageDiscographyService.addNewTrack({ payload });
+
       toast(
         <CustomToast
           status="success"
@@ -47,22 +49,11 @@ export function RegisterTracks() {
       );
       reset();
     } catch (err) {
-      const error = err as AxiosError;
-      if (error.response.status === 404) {
-        toast(
-          <CustomToast
-            status="error"
-            title="Ops..."
-            message="Número da música ou nome já existentes"
-          />
-        );
-        return;
-      }
       toast(
         <CustomToast
           status="error"
           title="Ops..."
-          message="Não foi possível cadastrar a música"
+          message={err.message ?? "Não foi possível cadastrar a música"}
         />
       );
     }
@@ -70,8 +61,8 @@ export function RegisterTracks() {
 
   useEffect(() => {
     (async () => {
-      const { data } = await api.get("/album");
-      setAlbums(data.data);
+      const data = await discographyService.getAlbum({});
+      setAlbums(data);
     })();
   }, []);
 

@@ -6,9 +6,10 @@ export const Content = styled.header`
   display: flex;
 
   @media (max-width: 600px) {
-    row-gap: 1rem;
     align-items: center;
     flex-direction: column;
+    margin-top: 1rem;
+    row-gap: 1rem;
   }
 
   button {

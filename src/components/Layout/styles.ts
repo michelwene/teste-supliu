@@ -11,4 +11,8 @@ export const Content = styled.section`
   padding: 1rem;
 
   min-height: 80vh;
+
+  @media (max-width: 600px) {
+    padding: 0;
+  }
 `;

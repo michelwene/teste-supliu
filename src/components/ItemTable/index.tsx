@@ -1,8 +1,9 @@
 import { IconButton } from "components/Button/styles";
+import { CustomToast } from "components/CustomTostfy";
 import React, { useState } from "react";
-import { RiDeleteBin6Fill } from "react-icons/ri";
-import { api } from "services/api";
-import { ItemTableProps } from "types/itemTable";
+import { toast } from "react-toastify";
+import { discographyService } from "services/useCases/discographyService";
+import { ItemTableProps } from "types/discography";
 
 export const ItemTable = ({ track, refetch }: ItemTableProps) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -10,10 +11,24 @@ export const ItemTable = ({ track, refetch }: ItemTableProps) => {
   async function handleDeleteTrack(id: number) {
     try {
       setIsLoading(true);
-      await api.delete(`/track/${id}`);
+      await discographyService.deleteTrack(id);
+
       await refetch();
+      toast(
+        <CustomToast
+          status="success"
+          title="Sucesso!"
+          message="Música deletada com sucesso!"
+        />
+      );
     } catch (err) {
-      console.log(err);
+      toast(
+        <CustomToast
+          status="error"
+          title="Ops..."
+          message="Não foi possível deletar a música."
+        />
+      );
     } finally {
       setIsLoading(false);
     }
@@ -35,7 +50,7 @@ export const ItemTable = ({ track, refetch }: ItemTableProps) => {
           onClick={() => handleDeleteTrack(track.id)}
           disabled={isLoading}
         >
-          <RiDeleteBin6Fill fontSize={20} color="black" />
+          Deletar
         </IconButton>
       </div>
       <td>{converterSecondsToMinutes(track.duration)}</td>

@@ -75,11 +75,15 @@ export const Search = styled.div`
 `;
 
 export const Table = styled.table`
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 3.5px 5.5px rgba(0, 0, 0, 0.02);
+
   display: flex;
   flex-direction: column;
 
   margin-top: 2rem;
-
+  padding: 13px;
   row-gap: 1rem;
 
   thead {
@@ -113,7 +117,11 @@ export const Table = styled.table`
       > div {
         align-items: center;
         display: flex;
-        column-gap: 2.5rem;
+        column-gap: 2rem;
+
+        @media (max-width: 600px) {
+          column-gap: 0.5rem;
+        }
       }
     }
   }

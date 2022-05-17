@@ -1,16 +1,19 @@
-import { Content } from "./styles";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { toast } from "react-toastify";
 import { Spinner } from "components/Spinner";
 import { FormLayout } from "components/FormLayout";
-import { api } from "services/api";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { AxiosError } from "axios";
 import { Input } from "components/Form/Input";
 import { CustomToast } from "components/CustomTostfy";
-import { formAlbumSchema } from "Shared/Validators/registerAlbum";
+import { Content } from "./styles";
+import { toast } from "react-toastify";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+
 import { IFormAlbumData } from "types/registerAlbum";
+import { formAlbumSchema } from "Shared/Validators/schema";
+import { manageDiscographyService } from "services/useCases/manageDiscographyService";
+
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import { AxiosError } from "axios";
 
 export function RegisterAlbum() {
   const {
@@ -24,7 +27,7 @@ export function RegisterAlbum() {
 
   async function handleFormSubmit(data: IFormAlbumData) {
     try {
-      await api.post("/album", data);
+      await manageDiscographyService.createAlbum(data);
 
       toast(
         <CustomToast
@@ -33,6 +36,7 @@ export function RegisterAlbum() {
           message="Álbum cadastrado com sucesso!"
         />
       );
+
       reset();
     } catch (err) {
       const error = err as AxiosError;

@@ -1,19 +1,20 @@
 import { Layout } from "components/Layout";
-import { Search, Table } from "./styles";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
-
-import { Link } from "react-router-dom";
 import { Spinner } from "components/Spinner";
-import { toast } from "react-toastify";
-import { api } from "services/api";
-import { useState } from "react";
 import { TableSkeleton } from "components/Skeleton";
 import { Input } from "components/Form/Input";
 import { LayoutButton } from "components/Button/styles";
-import { AlbumData } from "types/discography";
 import { CustomToast } from "components/CustomTostfy";
-import { ItemTable } from "components/ItemTable";
 import { InputError } from "components/InputError";
+import { ItemTable } from "components/ItemTable";
+
+import { Search, Table } from "./styles";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { AlbumData } from "types/discography";
+import { discographyService } from "services/useCases/discographyService";
+
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useState, useEffect } from "react";
 
 export function Discography() {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,14 +25,9 @@ export function Discography() {
     try {
       setIsLoading(true);
 
-      const { data: response } = await api.get(`/album`, {
-        params: {
-          keyword: search,
-          limit: 10,
-          page: 1,
-        },
-      });
-      if (response.data.length === 0) {
+      const data = await discographyService.getAlbum({ search });
+
+      if (data.length === 0) {
         toast(
           <CustomToast
             status="error"
@@ -42,7 +38,7 @@ export function Discography() {
         setAlbums([]);
         return;
       }
-      setAlbums(response.data);
+      setAlbums(data);
     } catch (err) {
       toast(
         <CustomToast
@@ -56,33 +52,41 @@ export function Discography() {
     }
   }
 
-  async function handleRefetchAlbum({
-    isFilter = false,
-  }: {
-    isFilter?: boolean;
-  }) {
+  async function handleRefetchAlbum() {
     try {
-      const { data: response } = await api.get(`/album`, {
-        params: {
-          keyword: isFilter ? search : "",
-          limit: 10,
-          page: 1,
-        },
-      });
-      setAlbums(response.data);
+      const data = await discographyService.getAlbum({});
+
+      setAlbums(data);
     } catch (err) {
-      console.log(err);
+      toast(
+        <CustomToast
+          status="error"
+          title="Ops..."
+          message="Não foi possível carregar os álbuns."
+        />
+      );
     }
   }
 
   async function handleDeleteAlbum(id: number) {
     try {
-      await api.delete(`/album/${id}`);
-      handleRefetchAlbum({ isFilter: true });
+      await discographyService.deleteAlbum(id);
+
+      await handleRefetchAlbum();
     } catch (err) {
-      console.log(err);
+      toast(
+        <CustomToast
+          status="error"
+          title="Ops..."
+          message="Não foi possível deletar o álbum"
+        />
+      );
     }
   }
+
+  useEffect(() => {
+    (async () => handleRefetchAlbum())();
+  }, []);
 
   return (
     <Layout>
@@ -96,7 +100,7 @@ export function Discography() {
               onChange={(e) => {
                 setSearch(e.target?.value!);
                 e.target.value === "" &&
-                  (async () => await handleRefetchAlbum({ isFilter: false }))();
+                  (async () => await handleRefetchAlbum())();
               }}
               value={search}
             />
@@ -149,10 +153,7 @@ export function Discography() {
             </thead>
             <tbody>
               {album.tracks.map((track) => (
-                <ItemTable
-                  track={track}
-                  refetch={() => handleRefetchAlbum({ isFilter: true })}
-                />
+                <ItemTable track={track} refetch={() => handleRefetchAlbum()} />
               ))}
             </tbody>
           </Table>
